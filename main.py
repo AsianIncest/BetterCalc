@@ -62,19 +62,20 @@ def button_trigger(x):
     ui.button_marja.setDisabled(x)
     ui.button_calc.setDisabled(x)
 
-app = QtWidgets.QApplication(sys.argv)
-MainWindow = QtWidgets.QMainWindow()
-ui = Ui_MainWindow()
-ui.setupUi(MainWindow)
-calc = BetMatch()
-###############################################
-ui.button_add.clicked.connect(button_add_click)
-ui.button_delete.clicked.connect(button_del_click)
-ui.button_clear.clicked.connect(button_clear_click)
-ui.button_marja.clicked.connect(button_marja_click)
-ui.button_calc.clicked.connect(button_calc_click)
-###############################################
-MainWindow.show()
-sys.exit(app.exec_())
+if __name__ == "__main__":
+    app = QtWidgets.QApplication(sys.argv)
+    MainWindow = QtWidgets.QMainWindow()
+    ui = Ui_MainWindow()
+    ui.setupUi(MainWindow)
+    calc = BetMatch()
+    ###############################################
+    ui.button_add.clicked.connect(button_add_click)
+    ui.button_delete.clicked.connect(button_del_click)
+    ui.button_clear.clicked.connect(button_clear_click)
+    ui.button_marja.clicked.connect(button_marja_click)
+    ui.button_calc.clicked.connect(button_calc_click)
+    ###############################################
+    MainWindow.show()
+    sys.exit(app.exec_())
 
 
