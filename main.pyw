@@ -16,13 +16,21 @@ class ApplicationWindow(QtWidgets.QMainWindow):
 def button_add_click():
     x, _ = QInputDialog.getText(None, "BetterCalc", "Введите коэффициент.\n")
     if calc.testFloat(x):
-        ui.listWidget.addItem(x)
+        if float(x) > 0:
+            ui.listWidget.addItem(str(x))
+        else:
+            msg_err("Введи число больше нуля!")
     else:
-        msg = QMessageBox()
-        msg.setText("Неверный коэффициент, требуется целое либо вещественное.\nПример: 1.2")
-        msg.setWindowTitle("BetterCalc")
-        msg.setIcon(QMessageBox.Critical)
-        msg.exec_()
+        msg_err("Неверный коэффициент, требуется целое либо вещественное.\nПример: 1.2")
+
+
+
+def msg_err(txt):
+    msg = QMessageBox()
+    msg.setText(txt)
+    msg.setWindowTitle("BetterCalc")
+    msg.setIcon(QMessageBox.Critical)
+    msg.exec_()
 
 
 def button_del_click():
@@ -48,13 +56,20 @@ def button_marja_click():
 def get_all_items():
     return [float(ui.listWidget.item(i).text()) for i in range(ui.listWidget.count())]
 
+def clear_list():
+    [ui.listWidget.takeItem(0) for _ in range(ui.listWidget.count())]
+
 def button_calc_click():
     button_marja_click()
     calc.k = get_all_items()
-    [ui.listWidget.takeItem(0) for _ in range(ui.listWidget.count())]
-    for a, b in zip(calc.k, calc.calcTrueKef()):
-        ui.listWidget.addItem(f"{a}\t<-->\t{b}")
-    button_trigger(True)
+    if len(calc.k) > 1:
+        clear_list()
+        for a, b in zip(calc.k, calc.calcTrueKef()):
+            ui.listWidget.addItem(f"{a}\t<-->\t{b}")
+        button_trigger(True)
+    elif len(calc.k) == 1:
+        clear_list()
+        ui.listWidget.addItem(f"{calc.k[0]}\t<-->\t{calc.otherSide()}")
 
 def button_trigger(x):
     ui.button_add.setDisabled(x)
