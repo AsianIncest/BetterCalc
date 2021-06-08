@@ -6,15 +6,22 @@ class BetMatch:
 
     def addK(self, k):
         #добавить кеф в список
+        if not self.testFloat(k):
+            return False
+        fk = float(k)
+        if fk > 0:
+            self.k.append(fk)
+            return True
+        else:
+            return False
+
+
+    def testFloat(self, x):
         try:
-            fk = float(k)
-            if fk > 0:
-                self.k.append(fk)
-            else:
-                return False
+            x = float(x)
+            return True
         except:
             return False
-        return True
 
     def clearK(self):
         #очистить список кефов
@@ -36,7 +43,7 @@ class BetMatch:
         p = [1 / i * 100 for i in self.k] #расчитаем кефы в проценты
         s = sum(p)
         if s > 100:
-            return round(s - 100, self.accuracy_p) #все хорошо маржа >0
+            return int(s-100) #все хорошо маржа >0
         elif s == 0:
             return 0 #нулевая маржа
         else:
