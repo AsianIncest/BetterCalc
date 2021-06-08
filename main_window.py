@@ -62,6 +62,7 @@ class Ui_MainWindow(object):
         font.setBold(True)
         font.setWeight(75)
         self.textMarja.setFont(font)
+        self.textMarja.setReadOnly(True)
         self.textMarja.setObjectName("textMarja")
         MainWindow.setCentralWidget(self.centralwidget)
 
