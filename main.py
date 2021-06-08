@@ -35,17 +35,32 @@ def button_clear_click():
     for _ in range(ui.listWidget.count()):
         ui.listWidget.takeItem(0)
     ui.textMarja.setText("0")
+    button_trigger(False)
 
 def button_marja_click():
-    items = [ui.listWidget.item(i).text() for i in range(ui.listWidget.count())]
+    items = get_all_items()
     calc.clearK()
     for i in items:
         calc.addK(i)
     m = calc.calcMarja()
     ui.textMarja.setText(str(m) if m != False else "0")
 
+def get_all_items():
+    return [float(ui.listWidget.item(i).text()) for i in range(ui.listWidget.count())]
+
 def button_calc_click():
-    pass
+    button_marja_click()
+    calc.k = get_all_items()
+    [ui.listWidget.takeItem(0) for _ in range(ui.listWidget.count())]
+    for a, b in zip(calc.k, calc.calcTrueKef()):
+        ui.listWidget.addItem(f"{a}\t<-->\t{b}")
+    button_trigger(True)
+
+def button_trigger(x):
+    ui.button_add.setDisabled(x)
+    ui.button_delete.setDisabled(x)
+    ui.button_marja.setDisabled(x)
+    ui.button_calc.setDisabled(x)
 
 app = QtWidgets.QApplication(sys.argv)
 MainWindow = QtWidgets.QMainWindow()

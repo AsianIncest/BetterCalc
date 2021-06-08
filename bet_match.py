@@ -48,3 +48,10 @@ class BetMatch:
             return 0 #нулевая маржа
         else:
             return False #отрицательной маржи не может быть
+
+    def calcTrueKef(self):
+        m = self.calcMarja()
+        if m:
+            return [round(x + (x/100*m), self.accuracy_k) for x in self.k]
+        return self.k
+
