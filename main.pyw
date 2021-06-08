@@ -70,6 +70,7 @@ def button_calc_click():
     elif len(calc.k) == 1:
         clear_list()
         ui.listWidget.addItem(f"{calc.k[0]}\t<-->\t{calc.otherSide()}")
+        button_trigger(True)
 
 def button_trigger(x):
     ui.button_add.setDisabled(x)
